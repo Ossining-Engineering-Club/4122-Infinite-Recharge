@@ -18,6 +18,11 @@ void Robot::TeleopPeriodic() {}
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
+OECJoystick * stick1;
+OECJoystick * stick2;
+OECJoystick * stick3;
+OECJoystick * driverstation;
+
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
 #endif

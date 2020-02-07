@@ -8,6 +8,7 @@
 #pragma once
 
 #include <frc/TimedRobot.h>
+#include <OECJoystick.h>
 
 class Robot : public frc::TimedRobot {
  public:
