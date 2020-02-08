@@ -1,8 +1,13 @@
 #pragma once
-#include "frc/Talon.h"
-
-using namespace frc;
+#include <Robot.h>
 
 class Bling{
 
+
+Spark * ledcontroller;
+
+Bling();
+void BlingRed();
+void BlingBlue();
+void BlingGreen();
 };

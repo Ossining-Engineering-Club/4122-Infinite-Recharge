@@ -7,21 +7,34 @@
 
 #include "Robot.h"
 
+Robot::Robot():
+stick1(0),
+stick2(1),
+stick3(3),
+driverstation(4),
+Intake(),
+
+Bling(),
+
+{
+    
+}
+
+
 void Robot::RobotInit() {}
 
 void Robot::AutonomousInit() {}
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
-void Robot::TeleopPeriodic() {}
+void Robot::TeleopPeriodic() {
+
+}
 
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
-OECJoystick * stick1;
-OECJoystick * stick2;
-OECJoystick * stick3;
-OECJoystick * driverstation;
+
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
