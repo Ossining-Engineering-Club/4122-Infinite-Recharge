@@ -11,7 +11,8 @@ Intake::Intake(){
 
 void Intake::RunIntake(double power){
 
-    intakein -> Set(power);
+    intake1 -> Set(power);
+    intake2 -> Set(power);
 
 }
 
