@@ -7,20 +7,6 @@
 
 #include "Robot.h"
 
-Robot::Robot():
-stick1(0),
-stick2(1),
-stick3(3),
-driverstation(4),
-Intake(),
-
-Bling(),
-
-{
-    
-}
-
-
 void Robot::RobotInit() {}
 
 void Robot::AutonomousInit() {}
