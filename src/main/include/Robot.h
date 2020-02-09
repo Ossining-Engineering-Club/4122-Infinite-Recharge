@@ -5,13 +5,13 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+
 #pragma once
 
+#include <ctre/Phoenix.h>
 #include <frc/TimedRobot.h>
 #include <OECJoystick.h>
 #include <frc/WPILib.h>
-#include <ctre/Phoenix.h>
-#include <frc/Solenoid.h>
 
 using namespace frc;
 

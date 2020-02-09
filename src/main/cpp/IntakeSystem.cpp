@@ -1,8 +1,7 @@
 #include <IntakeSystem.h>
 
 Intake::Intake(){
-    front = new ctre::phoneix::motorcontrol::can::WPI_TalonSRX(13);
-    
+    front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
     back = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(14);
 
     solenoidleft = new Solenoid (00);
