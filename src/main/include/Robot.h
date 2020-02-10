@@ -10,13 +10,15 @@
 
 #include <ctre/Phoenix.h>
 #include <frc/TimedRobot.h>
-#include <OECJoystick.h>
-#include <frc/WPILib.h>
+#include "OECJoystick.h"
+#include "Tankdrive.h"
 
 using namespace frc;
 
 class Robot : public frc::TimedRobot {
  public:
+
+  Robot();
   void RobotInit() override;
 
   void AutonomousInit() override;
@@ -32,6 +34,8 @@ OECJoystick * stick1;
 OECJoystick * stick2;
 OECJoystick * stick3;
 OECJoystick * driverstation;
+
+Tankdrive tankdrive;
 
 
 };
