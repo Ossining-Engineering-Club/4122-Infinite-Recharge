@@ -7,6 +7,7 @@ class Intake{
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX * front;
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX * back;
 
+
 Solenoid * solenoidleft;
 Solenoid * solenoidright;
 

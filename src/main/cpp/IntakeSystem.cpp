@@ -20,7 +20,7 @@ void Intake::RunIntake(double power){
 void Intake::IntakeDrop(){
     solenoidleft -> Set(true);
     solenoidright -> Set(true);
-    Wait(0.25);
+    Wait(0.5);
     solenoidleft -> Set(false);
     solenoidright -> Set(false);
 }
