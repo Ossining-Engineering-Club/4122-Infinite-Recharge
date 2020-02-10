@@ -1,9 +1,8 @@
 #include <Climber.h>
 
-Climber::Climber(double position){
+Climber::Climber(){
 
     climber = new ctre::phoenix::motorcontrol::can::WPI_TalonFX(18);
-
 }
 
 void Climber::ClimberUp(int power){
