@@ -5,9 +5,15 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
+
 #pragma once
 
+#include <ctre/Phoenix.h>
 #include <frc/TimedRobot.h>
+#include <OECJoystick.h>
+#include <frc/WPILib.h>
+
+using namespace frc;
 
 class Robot : public frc::TimedRobot {
  public:
@@ -21,4 +27,11 @@ class Robot : public frc::TimedRobot {
 
   void TestInit() override;
   void TestPeriodic() override;
+
+OECJoystick * stick1;
+OECJoystick * stick2;
+OECJoystick * stick3;
+OECJoystick * driverstation;
+
+
 };
