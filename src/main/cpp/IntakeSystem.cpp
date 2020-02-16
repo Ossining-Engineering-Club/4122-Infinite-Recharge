@@ -2,16 +2,20 @@
 
 Intake::Intake(){
     front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
-    back = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(14);
-
-    solenoidleft = new Solenoid (00);
-    solenoidright = new Solenoid (01);
+    
+    left = new Solenoid (00);
+    right = new Solenoid (01);
 
 }
 
-void Intake::RunIntake(double power){
+void Intake::RunIntakeForward(double power){
     front -> Set(power);
-    back -> Set(power);
+
+}
+
+void Intake::RunIntakeBackward(double power){
+    front ->Set(power);
+    
 }
 
 void Intake::IntakeDrop(){

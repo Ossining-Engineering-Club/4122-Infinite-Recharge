@@ -1,16 +1,12 @@
 #include "Robot.h"
 
 Robot::Robot():
-<<<<<<< HEAD
-Intake()
+intake(),
+tankdrive(0)
 {
 dash -> init();
 }
 
-=======
-tankdrive(0)
-{}
->>>>>>> 3e80457c812fa17fced85671261704b670104bbe
 
 void Robot::RobotInit() {}
 
@@ -46,6 +42,16 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
+//IntakeSystem
+
+if(stick3 -> GetButton(2)){
+    RunIntakeForward(0.2);
+}
+
+if(stick3->GetButton(3)){
+//negative number to spin backwards
+    RunIntakeBackward(-0.2);
+}
 
 
 

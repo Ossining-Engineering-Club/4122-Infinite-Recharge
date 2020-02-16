@@ -11,15 +11,8 @@
 #include <ctre/Phoenix.h>
 
 #include <frc/TimedRobot.h>
-<<<<<<< HEAD
-
-#include <OECJoystick.h>
-
-#include <frc/WPILib.h>
-=======
 #include "OECJoystick.h"
 #include "Tankdrive.h"
->>>>>>> 3e80457c812fa17fced85671261704b670104bbe
 
 #include <IntakeSystem.h>
 
@@ -45,11 +38,7 @@ OECJoystick * stick2;
 OECJoystick * stick3;
 OECJoystick * driverstation;
 
-<<<<<<< HEAD
-SmartDashboard * dash;
-=======
 Tankdrive tankdrive;
->>>>>>> 3e80457c812fa17fced85671261704b670104bbe
 
 
 };
