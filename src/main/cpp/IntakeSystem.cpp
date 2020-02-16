@@ -1,4 +1,4 @@
-#include <IntakeSystem.h>
+#include    <IntakeSystem.h>
 
 Intake::Intake(){
     front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
@@ -10,17 +10,14 @@ Intake::Intake(){
 }
 
 void Intake::RunIntake(double power){
-
     front -> Set(power);
     back -> Set(power);
-    
-
 }
 
 void Intake::IntakeDrop(){
-    solenoidleft -> Set(true);
-    solenoidright -> Set(true);
+    left -> Set(true);
+    right -> Set(true);
     Wait(0.5);
-    solenoidleft -> Set(false);
-    solenoidright -> Set(false);
+    left -> Set(false);
+    right -> Set(false);
 }

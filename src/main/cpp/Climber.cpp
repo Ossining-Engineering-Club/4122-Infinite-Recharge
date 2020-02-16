@@ -1,10 +1,9 @@
 #include <Climber.h>
 
-Climber::Climber(double climberencoder){
+Climber::Climber(){
 
     climber = new ctre::phoenix::motorcontrol::can::WPI_TalonFX(18);
-    climberencoder = climber -> GetSelectedSensorPosition();
-
+    
 }
 
 void Climber::ClimberUp(int power){

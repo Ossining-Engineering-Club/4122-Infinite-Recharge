@@ -9,9 +9,14 @@
 #pragma once
 
 #include <ctre/Phoenix.h>
+
 #include <frc/TimedRobot.h>
+
 #include <OECJoystick.h>
+
 #include <frc/WPILib.h>
+
+#include <IntakeSystem.h>
 
 using namespace frc;
 
@@ -32,6 +37,8 @@ OECJoystick * stick1;
 OECJoystick * stick2;
 OECJoystick * stick3;
 OECJoystick * driverstation;
+
+SmartDashboard * dash;
 
 
 };
