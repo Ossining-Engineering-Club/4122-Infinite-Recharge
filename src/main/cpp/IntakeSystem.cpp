@@ -1,24 +1,20 @@
-#include    <IntakeSystem.h>
+#include <IntakeSystem.h>
 
-Intake::Intake(){
-    front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
-    
-    left = new Solenoid (00);
-    right = new Solenoid (01);
-
+IntakeSystem::IntakeSystem(){
+        front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
+        left = new Solenoid (00);
+        right = new Solenoid (01);
 }
 
-void Intake::RunIntakeForward(double power){
+void IntakeSystem::RunIntakeForward(float power){
     front -> Set(power);
-
 }
 
-void Intake::RunIntakeBackward(double power){
-    front ->Set(power);
-    
+void IntakeSystem::RunIntakeBackward(float power){
+    front -> Set(-power);
 }
 
-void Intake::IntakeDrop(){
+void IntakeSystem::IntakeDrop(){
     left -> Set(true);
     right -> Set(true);
     Wait(0.5);

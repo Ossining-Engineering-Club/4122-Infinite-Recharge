@@ -1,23 +1,13 @@
 #include <Climber.h>
 
 Climber::Climber(){
-
-    climber = new ctre::phoenix::motorcontrol::can::WPI_TalonFX(18);
-    
+    lift = new rev::CANSparkMax(18, rev::CANSparkMax::MotorType::kBrushless);
 }
 
-void Climber::ClimberUp(int power){
-    climber-> Set(power);
-    
-
+void Climber::Up(double powerup){
+    lift -> Set(powerup);
 }
 
-void Climber::ClimberDown(int power){
-    climber-> Set(power);
+void Climber::Down(double powerdown){
+    lift -> Set(powerdown);
 }
-
-void Climber::ClimberRestriction(){
- 
-     climber -> Set(100.00);
-}
-

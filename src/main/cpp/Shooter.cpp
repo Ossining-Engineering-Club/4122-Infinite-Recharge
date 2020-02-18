@@ -7,7 +7,7 @@ Shooter::Shooter():
     TurretEncoder(Turret, rev::CANEncoder::EncoderType::kHallSensor, 1),
     Hood(12),
     TurretController(),
-    HoodController(),
+    HoodController()
 {
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();

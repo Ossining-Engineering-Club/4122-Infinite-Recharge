@@ -1,14 +1,20 @@
 #include "Robot.h"
 
 Robot::Robot():
+tankdrive(0),
 intake(),
-tankdrive(0)
+climber()
 {
 dash -> init();
 }
 
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+    stick1 = new OECJoystick(0);
+    stick2 = new OECJoystick(1);
+    stick3 = new OECJoystick(2);
+    driverstation = new OECJoystick(3);
+}
 
 void Robot::AutonomousInit() {
     int AutoPathNumber = 0;
@@ -42,16 +48,21 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
-//IntakeSystem
-
-if(stick3 -> GetButton(2)){
-    RunIntakeForward(0.2);
+//Intake System Code
+//Intake Speed
+intakespeed = (stick3 -> GetZ()-1)/2;
+dash -> PutNumber("Intake Speed: ", intakespeed * -100);
+//Intake Run
+if (stick3 -> GetButton(2)){
+intake.RunIntakeForward(intakespeed);
+}
+//Only give values between 0 and 1 -> the variable it goes into already has a negative in it
+if (stick3 -> GetButton(3)){
+    intake.RunIntakeBackward(intakespeed);
 }
 
-if(stick3->GetButton(3)){
-//negative number to spin backwards
-    RunIntakeBackward(-0.2);
-}
+
+//Climber Code
 
 
 

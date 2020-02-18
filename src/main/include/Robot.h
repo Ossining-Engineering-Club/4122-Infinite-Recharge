@@ -1,11 +1,3 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2018 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
-
 #pragma once
 
 #include <ctre/Phoenix.h>
@@ -13,14 +5,32 @@
 #include <frc/TimedRobot.h>
 #include "OECJoystick.h"
 #include "Tankdrive.h"
+#include <frc/smartdashboard/SmartDashboard.h>
 
 #include <IntakeSystem.h>
+#include <Climber.h>
 
 using namespace frc;
 
 class Robot : public frc::TimedRobot {
- public:
 
+
+private:
+OECJoystick * stick1;
+OECJoystick * stick2;
+OECJoystick * stick3;
+OECJoystick * driverstation;
+
+frc::SmartDashboard * dash;
+
+Tankdrive tankdrive;
+IntakeSystem intake;
+Climber climber;
+
+//variable for intake speed
+double intakespeed;
+
+public:
   Robot();
   void RobotInit() override;
 
@@ -32,13 +42,6 @@ class Robot : public frc::TimedRobot {
 
   void TestInit() override;
   void TestPeriodic() override;
-
-OECJoystick * stick1;
-OECJoystick * stick2;
-OECJoystick * stick3;
-OECJoystick * driverstation;
-
-Tankdrive tankdrive;
 
 
 };

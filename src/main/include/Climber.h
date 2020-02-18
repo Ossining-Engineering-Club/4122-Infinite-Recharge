@@ -1,16 +1,21 @@
 #pragma once
 
 #include <Robot.h>
+#include "rev/CANSparkMax.h"
+
+using namespace frc;
 
 class Climber{
 
-ctre::phoenix::motorcontrol::can::WPI_TalonFX * climber;
- 
+
+private:
+    rev::CANSparkMax * lift;
 
 public:
-Climber();
-void ClimberUp(int power);
-void ClimberDown(int power);
-void ClimberRestriction();
-};
 
+Climber();
+void Up(double powerup);
+void Down(double powerdown);
+
+
+};

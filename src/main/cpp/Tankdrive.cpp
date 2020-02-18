@@ -28,7 +28,8 @@ RPMTimer()
 	Gyro.ResetAngle();
 	LeftF.GetEncoder();
 	LeftB.GetEncoder();
-	RightF.GetEncoder();	RightB.GetEncoder();
+	RightF.GetEncoder();
+	RightB.GetEncoder();
 	throttle = 0.0;
 	VisionX = 0.0;
 	LWEncoder.SetPositionConversionFactor(-1.0 * ENCODERCONST);
