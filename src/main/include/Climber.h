@@ -16,6 +16,7 @@ public:
 Climber();
 void Up(double powerup);
 void Down(double powerdown);
+void ZeroSpeed();
 
 
 };

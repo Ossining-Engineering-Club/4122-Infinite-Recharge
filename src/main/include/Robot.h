@@ -9,6 +9,7 @@
 
 #include <IntakeSystem.h>
 #include <Climber.h>
+#include <ColorWheel.h>
 
 using namespace frc;
 
@@ -26,9 +27,14 @@ frc::SmartDashboard * dash;
 Tankdrive tankdrive;
 IntakeSystem intake;
 Climber climber;
+ColorWheel colorwheel;
 
 //variable for intake speed
 double intakespeed;
+
+//variable for climber speed
+double climberspeed;
+
 
 public:
   Robot();

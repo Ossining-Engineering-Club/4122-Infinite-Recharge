@@ -11,3 +11,7 @@ void Climber::Up(double powerup){
 void Climber::Down(double powerdown){
     lift -> Set(powerdown);
 }
+
+void Climber::ZeroSpeed(){
+    lift -> Set(0.0);
+}

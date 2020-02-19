@@ -3,7 +3,8 @@
 Robot::Robot():
 tankdrive(0),
 intake(),
-climber()
+climber(),
+colorwheel()
 {
 dash -> init();
 }
@@ -61,10 +62,51 @@ if (stick3 -> GetButton(3)){
     intake.RunIntakeBackward(intakespeed);
 }
 
-
+/*----------------------------------------------------------*/
 //Climber Code
+climberspeed = (stick2 -> GetZ()-1)/2;
+dash -> PutNumber("Climber Speed: ", climberspeed * -100);
+
+if (stick1 -> GetButton(3)){
+    climber.Up(climberspeed);
+}
+
+else{
+    climber.ZeroSpeed();
+}
 
 
+if (stick1 -> GetButton(2)){
+    climber.Down(climberspeed);
+}
+else{
+    climber.ZeroSpeed();
+}
+
+/*----------------------------------------------------------*/
+//Color Wheel
+
+//Spin Right
+if (stick3 -> GetButton(5)){
+
+colorwheel.SpinRight();
+
+}
+else{
+    colorwheel.SetZero();
+}
+
+//Spin Left
+if (stick3 -> GetButton(4)){
+    colorwheel.SpinLeft();
+}
+
+else{
+    colorwheel.SetZero();
+}
+
+}
+/*----------------------------------------------------------*/
 
 }
 
