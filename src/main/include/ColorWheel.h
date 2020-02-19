@@ -2,15 +2,17 @@
 
 #include <ctre/Phoenix.h>
 #include <frc/util/color.h>
+#include <rev/ColorSensorV3.h>
 
 using namespace frc;
 
 class ColorWheel{
 
 private:
-//ctre::phoenix::motorcontrol::can::WPI_TalonSRX *wheel;
 
-//rev::ColorSensorV3 * sensor;
+ctre::phoenix::motorcontrol::can::WPI_TalonSRX *wheel;
+
+rev::ColorSensorV3 * sensor;
 
 
 public:

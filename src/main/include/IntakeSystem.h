@@ -1,13 +1,14 @@
 #pragma once
 #include <ctre/Phoenix.h>
 #include <frc/Solenoid.h>
+#include <frc/Timer.h>
 
 class IntakeSystem{
 
 private:
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX *front;
-frc::Solenoid *left;
-frc::Solenoid *right;
+frc::Solenoid * left;
+frc::Solenoid * right;
 
 public:
 IntakeSystem();
