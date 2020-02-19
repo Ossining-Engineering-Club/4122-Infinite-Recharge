@@ -17,10 +17,10 @@ class Robot : public frc::TimedRobot {
 
 
 private:
-OECJoystick * stick1;
-OECJoystick * stick2;
-OECJoystick * stick3;
-OECJoystick * driverstation;
+OECJoystick stick1;
+OECJoystick stick2;
+OECJoystick stick3;
+OECJoystick driverstation;
 
 frc::SmartDashboard * dash;
 

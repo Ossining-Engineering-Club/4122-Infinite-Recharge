@@ -4,18 +4,17 @@ Robot::Robot():
 tankdrive(0),
 intake(),
 climber(),
-colorwheel()
+colorwheel(),
+stick1(0),
+stick2(1),
+stick3(2),
+driverstation(4)
 {
 dash -> init();
 }
 
 
-void Robot::RobotInit() {
-    stick1 = new OECJoystick(0);
-    stick2 = new OECJoystick(1);
-    stick3 = new OECJoystick(2);
-    driverstation = new OECJoystick(3);
-}
+void Robot::RobotInit() {}
 
 void Robot::AutonomousInit() {
     int AutoPathNumber = 0;
@@ -49,25 +48,36 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
+tankdrive.SetThrottle(stick1.GetZ());
+if(stick2.GetTrigger()){
+    double drivePowerDiff = (stick2.GetY() - stick1.GetY())/4.0;
+    tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
+
+}
+else{
+    tankdrive.Drive(stick1.GetY(), stick2.GetY());
+}
+
+
 //Intake System Code
 //Intake Speed
-intakespeed = (stick3 -> GetZ()-1)/2;
+intakespeed = (stick3.GetZ()-1)/2;
 dash -> PutNumber("Intake Speed: ", intakespeed * -100);
 //Intake Run
-if (stick3 -> GetButton(2)){
+if (stick3.GetButton(2)){
 intake.RunIntakeForward(intakespeed);
 }
 //Only give values between 0 and 1 -> the variable it goes into already has a negative in it
-if (stick3 -> GetButton(3)){
+if (stick3.GetButton(3)){
     intake.RunIntakeBackward(intakespeed);
 }
 
 /*----------------------------------------------------------*/
 //Climber Code
-climberspeed = (stick2 -> GetZ()-1)/2;
+climberspeed = (stick2.GetZ()-1)/2;
 dash -> PutNumber("Climber Speed: ", climberspeed * -100);
 
-if (stick1 -> GetButton(3)){
+if (stick1.GetButton(3)){
     climber.Up(climberspeed);
 }
 
@@ -76,7 +86,7 @@ else{
 }
 
 
-if (stick1 -> GetButton(2)){
+if (stick1.GetButton(2)){
     climber.Down(climberspeed);
 }
 else{
@@ -85,9 +95,9 @@ else{
 
 /*----------------------------------------------------------*/
 //Color Wheel
-
+/
 //Spin Right
-if (stick3 -> GetButton(5)){
+if (stick3.GetButton(5)){
 
 colorwheel.SpinRight();
 
@@ -97,7 +107,7 @@ else{
 }
 
 //Spin Left
-if (stick3 -> GetButton(4)){
+if (stick3.GetButton(4)){
     colorwheel.SpinLeft();
 }
 
@@ -107,8 +117,6 @@ else{
 
 }
 /*----------------------------------------------------------*/
-
-}
 
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
