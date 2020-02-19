@@ -1,6 +1,5 @@
 #pragma once
 
-#include <Robot.h>
 #include "rev/CANSparkMax.h"
 
 using namespace frc;

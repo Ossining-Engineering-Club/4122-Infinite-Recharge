@@ -2,8 +2,8 @@
 
 IntakeSystem::IntakeSystem(){
         front = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
-        left = new Solenoid (00);
-        right = new Solenoid (01);
+        left = new frc::Solenoid (00);
+        right = new frc::Solenoid (01);
 }
 
 void IntakeSystem::RunIntakeForward(float power){
@@ -17,7 +17,7 @@ void IntakeSystem::RunIntakeBackward(float power){
 void IntakeSystem::IntakeDrop(){
     left -> Set(true);
     right -> Set(true);
-    Wait(0.5);
+    frc::Wait(0.5);
     left -> Set(false);
     right -> Set(false);
 }
