@@ -3,15 +3,17 @@
 Shooter::Shooter():
     TopFlywheel(9, rev::CANSparkMaxLowLevel::MotorType::kBrushless),
     BottomFlywheel(10, rev::CANSparkMaxLowLevel::MotorType::kBrushless),
-    Turret(11, rev::CANSparkMaxLowLevel::MotorType::kBrushless),
-    TurretEncoder(Turret, rev::CANEncoder::EncoderType::kHallSensor, 1),
+    Feeder(16),
     Hood(12),
+    Turret(11),
+    TurretEncoder(0, 1, false, frc::CounterBase::k4X),
+    HoodEncoder(0, 1, false, frc::CounterBase::k4X),
     TurretController(),
-    HoodController()
+    HoodController(),
 {
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();
-    Turret.GetEncoder();
+    trimTurret = 0.0;
 }
 
 void Shooter::TurnTurret(double power){

@@ -2,6 +2,7 @@
 #include <ctre/Phoenix.h>
 #include <rev/CANSparkMax.h>
 #include <frc/Solenoid.h>
+#include <frc/Encoder.h>
 #include "LidarLite.h"
 #include "Limelight.h"
 #include "OECPIDController.h"
@@ -10,13 +11,15 @@ class Shooter{
     private:
         rev::CANSparkMax TopFlywheel;
         rev::CANSparkMax BottomFlywheel;
-        rev::CANSparkMax Turret;
-        rev::CANEncoder TurretEncoder;
-
         
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Feeder;
-        frc::Solenoid Hood;
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX Hood;
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX Turret;
+        
+        frc::Encoder TurretEncoder;
+        frc::Encoder HoodEncoder;
 
+        OECPIDController HoodController;
         OECPIDController TurretController;
 
         double trimTurret;

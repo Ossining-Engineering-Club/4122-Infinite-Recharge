@@ -1,5 +1,4 @@
 #pragma once
-#include <Robot.h>
 #include <ctre/Phoenix.h>
 #include <frc/Solenoid.h>
 
