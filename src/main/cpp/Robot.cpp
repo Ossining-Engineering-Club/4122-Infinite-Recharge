@@ -5,6 +5,7 @@ tankdrive(0),
 intake(),
 climber(),
 colorwheel(),
+bling(), 
 stick1(0),
 stick2(1),
 stick3(2),
@@ -56,6 +57,7 @@ if(stick2.GetTrigger()){
 }
 else{
     tankdrive.Drive(stick1.GetY(), stick2.GetY());
+
 }
 
 
@@ -66,10 +68,17 @@ dash -> PutNumber("Intake Speed: ", intakespeed * -100);
 //Intake Run
 if (stick3.GetButton(2)){
 intake.RunIntakeForward(intakespeed);
+bling.BlingBlue();
+}
+else{
+    intake.SetZero();
 }
 //Only give values between 0 and 1 -> the variable it goes into already has a negative in it
 if (stick3.GetButton(3)){
     intake.RunIntakeBackward(intakespeed);
+}
+else{
+    intake.SetZero();
 }
 
 /*----------------------------------------------------------*/
@@ -113,8 +122,6 @@ if (stick3.GetButton(4)){
 else{
     colorwheel.SetZero();
 }
-
-
 }
 
 /*----------------------------------------------------------*/

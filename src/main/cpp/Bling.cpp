@@ -3,7 +3,7 @@
 
 Bling::Bling(){
 
-blinkin = new Spark(5);
+blinkin = new frc::Spark(9);
 
 }
 
@@ -13,4 +13,8 @@ blinkin -> Set(0.61);
 
 void Bling::BlingBlue(){
 blinkin -> Set(0.87);
+}
+
+void Bling::BlingGreen(){
+    blinkin -> Set(0.77);
 }

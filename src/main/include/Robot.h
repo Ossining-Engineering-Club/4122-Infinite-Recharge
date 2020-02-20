@@ -4,12 +4,16 @@
 
 #include <frc/TimedRobot.h>
 #include "OECJoystick.h"
-#include "Tankdrive.h"
+
 #include <frc/smartdashboard/SmartDashboard.h>
 
+
+//Class References Files
+#include "Tankdrive.h"
 #include "IntakeSystem.h"
 #include "Climber.h"
 #include "ColorWheel.h"
+#include "Bling.h"
 
 using namespace frc;
 
@@ -28,6 +32,8 @@ Tankdrive tankdrive;
 IntakeSystem intake;
 Climber climber;
 ColorWheel colorwheel;
+Bling bling;
+
 
 //variable for intake speed
 double intakespeed;

@@ -5,6 +5,7 @@
 #include <frc/Encoder.h>
 #include "LidarLite.h"
 #include "Limelight.h"
+#include <frc/Timer.h>
 #include "OECPIDController.h"
 
 class Shooter{

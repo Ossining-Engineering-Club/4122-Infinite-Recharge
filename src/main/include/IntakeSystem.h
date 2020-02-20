@@ -14,5 +14,6 @@ public:
 IntakeSystem();
 void RunIntakeForward(float power);
 void RunIntakeBackward(float power);
+void SetZero();
 void IntakeDrop();
 };

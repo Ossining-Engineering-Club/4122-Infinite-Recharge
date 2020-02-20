@@ -14,6 +14,10 @@ void IntakeSystem::RunIntakeBackward(float power){
     front -> Set(-power);
 }
 
+void IntakeSystem::SetZero(){
+    front -> Set(0.0);
+}
+
 void IntakeSystem::IntakeDrop(){
     left -> Set(true);
     right -> Set(true);
