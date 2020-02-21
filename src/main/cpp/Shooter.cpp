@@ -9,7 +9,7 @@ Shooter::Shooter():
     TurretEncoder(0, 1, false, frc::CounterBase::k4X),
     HoodEncoder(0, 1, false, frc::CounterBase::k4X),
     TurretController(),
-    HoodController(),
+    HoodController()
 {
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();

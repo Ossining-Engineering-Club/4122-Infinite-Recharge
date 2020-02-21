@@ -9,13 +9,18 @@ bling(),
 stick1(0),
 stick2(1),
 stick3(2),
-driverstation(4)
+driverstation(4),
+shooterEncoder(0,1,false, frc::CounterBase::EncodingType::k4X)
 {
 dash -> init();
 }
 
 
-void Robot::RobotInit() {}
+void Robot::RobotInit() {
+    while(!IsEnabled()){
+        dash->PutNumber("Shooter encoder position", shooterEncoder.Get());
+    }
+}
 
 void Robot::AutonomousInit() {
     int AutoPathNumber = 0;
@@ -49,15 +54,14 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
+//Driving Code
 tankdrive.SetThrottle(stick1.GetZ());
 if(stick2.GetTrigger()){
     double drivePowerDiff = (stick2.GetY() - stick1.GetY())/4.0;
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
-
 }
 else{
     tankdrive.Drive(stick1.GetY(), stick2.GetY());
-
 }
 
 
@@ -83,18 +87,25 @@ else{
 
 /*----------------------------------------------------------*/
 //Climber Code
+
+//Sending Climber Encoder to Smart Dash
+double ClimberEncoderPositionVar = climber.EncoderValue();
+dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
+
+//Setting the Speed and Putting It Onto Smart Dash
 climberspeed = (stick2.GetZ()-1)/2;
 dash -> PutNumber("Climber Speed: ", climberspeed * -100);
 
+//Sending the Climber Up and if nothing else is pressed the motor is turned off
 if (stick1.GetButton(3)){
     climber.Up(climberspeed);
 }
-
 else{
     climber.ZeroSpeed();
 }
 
-
+//Setting the Climber Down and if nothing is pressed then the motor is turned off
+//Only give a Positive Value -> In the function the value is negated
 if (stick1.GetButton(2)){
     climber.Down(climberspeed);
 }

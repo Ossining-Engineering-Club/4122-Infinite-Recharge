@@ -6,7 +6,8 @@
 class IntakeSystem{
 
 private:
-ctre::phoenix::motorcontrol::can::WPI_TalonSRX *front;
+ctre::phoenix::motorcontrol::can::WPI_TalonSRX *intakemotor;
+ctre::phoenix::motorcontrol::can::WPI_TalonSRX *towermotor;
 frc::Solenoid * left;
 frc::Solenoid * right;
 
@@ -14,6 +15,8 @@ public:
 IntakeSystem();
 void RunIntakeForward(float power);
 void RunIntakeBackward(float power);
+void RunTowerForward(float power);
+void RunTowerBackward(float power);
 void SetZero();
 void IntakeDrop();
 };

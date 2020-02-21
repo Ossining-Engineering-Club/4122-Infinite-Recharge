@@ -14,6 +14,7 @@
 #include "Climber.h"
 #include "ColorWheel.h"
 #include "Bling.h"
+#include <frc/Encoder.h>
 
 using namespace frc;
 
@@ -34,6 +35,7 @@ Climber climber;
 ColorWheel colorwheel;
 Bling bling;
 
+frc::Encoder shooterEncoder;
 
 //variable for intake speed
 double intakespeed;
