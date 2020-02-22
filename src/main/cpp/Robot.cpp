@@ -52,7 +52,7 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
-void Robot::TeleopP eriodic() {
+void Robot::TeleopPeriodic() {
 
 //Driving Code
 tankdrive.SetThrottle(stick1.GetZ());
