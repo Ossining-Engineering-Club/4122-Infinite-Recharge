@@ -15,16 +15,20 @@ void IntakeSystem::RunIntakeBackward(float power){
     intakemotor -> Set(-power);
 }
 
-void IntakeSystem::SetZero(){
+void IntakeSystem::SetIntakeZero(){
     intakemotor -> Set(0.0);
 }
 
-void IntakeSystem::RunIntakeForward(float power){
+void IntakeSystem::RunTowerForward(float power){
     towermotor -> Set(power);
 }
 
-void IntakeSystem::RunIntakeBackward(float power){
+void IntakeSystem::RunTowerBackward(float power){
     towermotor -> Set(-power);
+}
+
+void IntakeSystem::SetTowerZero(){
+    towermotor -> Set(0.0);
 }
 
 void IntakeSystem::IntakeDrop(){

@@ -17,6 +17,7 @@ void RunIntakeForward(float power);
 void RunIntakeBackward(float power);
 void RunTowerForward(float power);
 void RunTowerBackward(float power);
-void SetZero();
+void SetIntakeZero();
+void SetTowerZero();
 void IntakeDrop();
 };

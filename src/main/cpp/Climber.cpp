@@ -3,7 +3,8 @@
 
 Climber::Climber(): 
 climb(18, rev::CANSparkMax::MotorType::kBrushless),
-climbencoder(climb, rev::CANEncoder::EncoderType::kHallSensor, 1)
+climbencoder(climb, rev::CANEncoder::EncoderType::kHallSensor, 1),
+towerencoder(0, 1, false, frc::CounterBase::k4X)
 {
     climb.GetEncoder();
 
@@ -19,7 +20,7 @@ void Climber::Down(double powerdown){
     climb.Set(-powerdown);
 }
 
-void Climber::ZeroSpeed(){
+void Climber::ZeroClimberSpeed(){
     climb.Set(0.0);
 }
 
@@ -29,6 +30,9 @@ return climbencoder.GetPosition();
 
 }
 
+
+
+//From Here Is Something I Just Want to Know to do not relevant to code
 void Climber::SetClimberPosition(double power, double EncoderPosition){
   
   /*

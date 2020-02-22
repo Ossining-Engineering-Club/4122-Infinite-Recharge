@@ -52,10 +52,11 @@ void Robot::AutonomousInit() {
 void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
-void Robot::TeleopPeriodic() {
+void Robot::TeleopP eriodic() {
 
 //Driving Code
 tankdrive.SetThrottle(stick1.GetZ());
+
 if(stick2.GetTrigger()){
     double drivePowerDiff = (stick2.GetY() - stick1.GetY())/4.0;
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
@@ -66,23 +67,20 @@ else{
 
 
 //Intake System Code
-//Intake Speed
-intakespeed = (stick3.GetZ()-1)/2;
-dash -> PutNumber("Intake Speed: ", intakespeed * -100);
 //Intake Run
 if (stick3.GetButton(2)){
 intake.RunIntakeForward(intakespeed);
 bling.BlingBlue();
 }
 else{
-    intake.SetZero();
+    intake.SetIntakeZero();
 }
 //Only give values between 0 and 1 -> the variable it goes into already has a negative in it
 if (stick3.GetButton(3)){
     intake.RunIntakeBackward(intakespeed);
 }
 else{
-    intake.SetZero();
+    intake.SetIntakeZero();
 }
 
 /*----------------------------------------------------------*/
@@ -101,7 +99,7 @@ if (stick1.GetButton(3)){
     climber.Up(climberspeed);
 }
 else{
-    climber.ZeroSpeed();
+    climber.ZeroClimberSpeed();
 }
 
 //Setting the Climber Down and if nothing is pressed then the motor is turned off
@@ -110,7 +108,7 @@ if (stick1.GetButton(2)){
     climber.Down(climberspeed);
 }
 else{
-    climber.ZeroSpeed();
+    climber.ZeroClimberSpeed();
 }
 
 /*----------------------------------------------------------*/
@@ -133,9 +131,9 @@ if (stick3.GetButton(4)){
 else{
     colorwheel.SetZero();
 }
+/*----------------------------------------------------------*/
 }
 
-/*----------------------------------------------------------*/
 
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}

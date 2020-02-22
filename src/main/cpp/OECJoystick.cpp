@@ -22,6 +22,7 @@ double OECJoystick::GetZ(){
 bool OECJoystick::GetTrigger(){
     GetButton(1);
 }
+
 bool OECJoystick::GetButton(int buttonNum){
     return buttons[buttonNum-1]->Get();
 }
