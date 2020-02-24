@@ -35,10 +35,7 @@ Climber climber;
 ColorWheel colorwheel;
 Bling bling;
 
-frc::Encoder shooterEncoder;
 
-//variable for intake speed
-double intakespeed;
 
 //variable for climber speed
 double climberspeed;

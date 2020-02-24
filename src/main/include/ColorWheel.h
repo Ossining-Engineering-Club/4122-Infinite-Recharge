@@ -13,7 +13,7 @@ private:
 
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX * wheel;
 
-//rev::ColorSensorV3::ColorSensorV3 * sensor;
+rev::ColorSensorV3 * sensor;
 
 
 

@@ -1,16 +1,13 @@
 #include <ColorWheel.h>
 
 ColorWheel::ColorWheel(){
-
-//sensor = new rev::ColorSensorV3(frc::I2C::0x39);
 wheel = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(16);
+sensor = new rev::ColorSensorV3(frc::I2C::kOnboard);
 }
 
 
 void ColorWheel::SpinRight(){
-
   wheel -> Set(0.3);
-
 }
 
 
@@ -24,6 +21,5 @@ void ColorWheel::SetZero(){
 }
 
 void ColorWheel::SensorDetection(){
-
 
 }

@@ -9,17 +9,14 @@ bling(),
 stick1(0),
 stick2(1),
 stick3(2),
-driverstation(4),
-shooterEncoder(0,1,false, frc::CounterBase::EncodingType::k4X)
+driverstation(4)
 {
 dash -> init();
 }
 
 
 void Robot::RobotInit() {
-    while(!IsEnabled()){
-        dash->PutNumber("Shooter encoder position", shooterEncoder.Get());
-    }
+   
 }
 
 void Robot::AutonomousInit() {
@@ -55,21 +52,27 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
 //Driving Code
+
+
 tankdrive.SetThrottle(stick1.GetZ());
 
+double tankspeed = (1-stick1.GetZ())/2;
+dash -> PutNumber("Tankdrive Throttle: ", tankspeed);
+
 if(stick2.GetTrigger()){
-    double drivePowerDiff = (stick2.GetY() - stick1.GetY())/4.0;
+    double drivePowerDiff = (stick1.GetY() - stick2.GetY())/4.0;
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
 }
 else{
-    tankdrive.Drive(stick1.GetY(), stick2.GetY());
+    tankdrive.Drive(stick2.GetY(), stick1.GetY());
 }
 
+/*----------------------------------------------------------*/
+//                      Intake System Code
 
-//Intake System Code
-//Intake Run
+//Intake Code
 if (stick3.GetButton(2)){
-intake.RunIntakeForward(intakespeed);
+intake.RunIntakeForward(0.5);
 bling.BlingBlue();
 }
 else{
@@ -77,12 +80,48 @@ else{
 }
 //Only give values between 0 and 1 -> the variable it goes into already has a negative in it
 if (stick3.GetButton(3)){
-    intake.RunIntakeBackward(intakespeed);
+    intake.RunIntakeBackward(0.5);
+    bling.BlingRed();
 }
 else{
     intake.SetIntakeZero();
 }
 
+//Tower Code
+if (stick3.GetButton(6)){
+    intake.TowerEncoderRotationForward();
+
+}
+
+else {
+    intake.SetTowerZero();
+}
+
+if (stick3.GetButton(7)){
+    intake.TowerEncoderRotationBackward();
+}
+
+else{
+    intake.SetTowerZero();
+}
+
+//Override For Tower
+if (stick3.GetButton(10) && stick3.GetButton(6)){
+    intake.RunTowerForward(0.5);
+}
+
+else{
+    intake.SetTowerZero();
+}
+
+if (stick3.GetButton(10) && stick3.GetButton(7)){
+        intake.RunTowerBackward(0.5);
+
+}
+
+else{
+    intake.SetTowerZero();
+}
 /*----------------------------------------------------------*/
 //Climber Code
 
