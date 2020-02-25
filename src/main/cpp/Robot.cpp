@@ -5,7 +5,8 @@ tankdrive(0),
 intake(),
 climber(),
 colorwheel(),
-bling(), 
+bling(),
+shooter(),
 stick1(0),
 stick2(1),
 stick3(2),
@@ -56,7 +57,7 @@ void Robot::TeleopPeriodic() {
 
 tankdrive.SetThrottle(stick1.GetZ());
 
-double tankspeed = (1-stick1.GetZ())/2;
+double tankspeed = (stick1.GetZ()+1)/2;
 dash -> PutNumber("Tankdrive Throttle: ", tankspeed);
 
 if(stick2.GetTrigger()){
@@ -130,8 +131,8 @@ double ClimberEncoderPositionVar = climber.EncoderValue();
 dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
 
 //Setting the Speed and Putting It Onto Smart Dash
-climberspeed = (stick2.GetZ()-1)/2;
-dash -> PutNumber("Climber Speed: ", climberspeed * -100);
+//climberspeed = (stick2.GetZ()-1)/2;
+//dash -> PutNumber("Climber Speed: ", climberspeed * -100);
 
 //Sending the Climber Up and if nothing else is pressed the motor is turned off
 if (stick1.GetButton(3)){
@@ -171,6 +172,28 @@ else{
     colorwheel.SetZero();
 }
 /*----------------------------------------------------------*/
+
+/*                     Shooter                              */
+
+double shooterspeed = (stick2.GetZ()+1)/2;
+
+if (stick3.GetTrigger()){
+shooter.SpinFlywheelsOpenLoop(shooterspeed, -shooterspeed);
+
+}
+
+else{
+    shooter.SpinFlywheelsOpenLoop(0.0,0.0);
+}
+
+if (stick3.GetButton(11)){
+    shooter.FeederWheel(0.5);
+}
+
+else{
+    shooter.FeederWheel(0.0);
+}
+
 }
 
 

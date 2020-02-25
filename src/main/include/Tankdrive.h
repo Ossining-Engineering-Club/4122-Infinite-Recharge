@@ -53,8 +53,12 @@ public: // for functions
 private: 
 	rev::CANSparkMax LeftF;
 	rev::CANSparkMax RightF;
+
 	rev::CANSparkMax LeftB;
 	rev::CANSparkMax RightB;
+
+	//rev::CANSparkMax LeftT;
+	//rev::CANSparkMax RightT;
 
 
 	rev::CANEncoder LWEncoder;

@@ -16,7 +16,10 @@ class Shooter{
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Feeder;
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Hood;
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Turret;
-        
+
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * topwheel;
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * bottomwheel;
+        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * feeder;
         frc::Encoder TurretEncoder;
         frc::Encoder HoodEncoder;
 
@@ -37,6 +40,8 @@ class Shooter{
         void SpinFlywheelsOpenLoop(double topPower, double bottomPower);
         void SpinFlywheelsPID(double topRPM, double bottomRPM);
         void Fire();
+
+    void FeederWheel(double feederspeed);
 
         void AutoTarget();
 };

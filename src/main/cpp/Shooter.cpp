@@ -14,6 +14,9 @@ Shooter::Shooter():
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();
     trimTurret = 0.0;
+    topwheel = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(9);
+    bottomwheel = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(10);
+    feeder = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
 }
 
 void Shooter::TurnTurret(double power){
@@ -31,4 +34,13 @@ void Shooter::TrimTurret(double angleDegrees){
 
 void TurnToPosition(double angleDegrees){
 
+}
+void Shooter::SpinFlywheelsOpenLoop(double topPower, double bottomPower){
+    topwheel -> Set(topPower);
+    bottomwheel -> Set(bottomPower);
+
+}
+
+void Shooter::FeederWheel(double feederspeed){
+    feeder -> Set(feederspeed);
 }

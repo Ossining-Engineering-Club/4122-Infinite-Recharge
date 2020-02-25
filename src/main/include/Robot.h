@@ -15,6 +15,7 @@
 #include "ColorWheel.h"
 #include "Bling.h"
 #include <frc/Encoder.h>
+#include <Shooter.h>
 
 using namespace frc;
 
@@ -34,6 +35,7 @@ IntakeSystem intake;
 Climber climber;
 ColorWheel colorwheel;
 Bling bling;
+Shooter shooter;
 
 
 
