@@ -3,7 +3,9 @@
 Shooter::Shooter():
     TopFlywheel(9, rev::CANSparkMaxLowLevel::MotorType::kBrushless),
     BottomFlywheel(10, rev::CANSparkMaxLowLevel::MotorType::kBrushless),
-    Feeder(16),
+    TopController(TopFlywheel),
+    BottomController(BottomFlywheel),
+    Feeder(13),
     Hood(12),
     Turret(11),
     TurretEncoder(0, 1, false, frc::CounterBase::k4X),
@@ -13,10 +15,15 @@ Shooter::Shooter():
 {
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();
+    TopController.SetP(SHOOTER_P);
+    TopController.SetI(SHOOTER_I);
+    TopController.SetD(SHOOTER_D);
+    TopController.SetFF(SHOOTER_FF);
+    BottomController.SetP(SHOOTER_P);
+    BottomController.SetI(SHOOTER_I);
+    BottomController.SetD(SHOOTER_D);
+    BottomController.SetFF(SHOOTER_FF);
     trimTurret = 0.0;
-    topwheel = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(9);
-    bottomwheel = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(10);
-    feeder = new ctre::phoenix::motorcontrol::can::WPI_TalonSRX(13);
 }
 
 void Shooter::TurnTurret(double power){
@@ -24,11 +31,15 @@ void Shooter::TurnTurret(double power){
         power = 1.0;
     else if(power < 1.0)
         power = -1.0;
-    
-    Turret.Set(power);
+
+ Turret.Set(power);
+
 }
 
 void Shooter::TrimTurret(double angleDegrees){
+
+
+
 
 }
 
@@ -36,11 +47,16 @@ void TurnToPosition(double angleDegrees){
 
 }
 void Shooter::SpinFlywheelsOpenLoop(double topPower, double bottomPower){
-    topwheel -> Set(topPower);
-    bottomwheel -> Set(bottomPower);
+    TopFlywheel.Set(topPower);
+    BottomFlywheel.Set(bottomPower);
 
 }
 
+void Shooter::SpinFlywheelsPID(double topRPM, double bottomRPM){
+    TopController.SetReference(topRPM, rev::ControlType::kVelocity, 0, SHOOTER_FF, rev::CANPIDController::ArbFFUnits::kVoltage);
+    BottomController.SetReference(bottomRPM, rev::ControlType::kVelocity, 0, SHOOTER_FF, rev::CANPIDController::ArbFFUnits::kVoltage);
+}
+
 void Shooter::FeederWheel(double feederspeed){
-    feeder -> Set(feederspeed);
+    Feeder.Set(feederspeed);
 }

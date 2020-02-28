@@ -7,19 +7,19 @@
 #include "Limelight.h"
 #include <frc/Timer.h>
 #include "OECPIDController.h"
+#include "Constants.h"
 
 class Shooter{
     private:
         rev::CANSparkMax TopFlywheel;
         rev::CANSparkMax BottomFlywheel;
+
+        rev::CANPIDController TopController;
+        rev::CANPIDController BottomController;
         
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Feeder;
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Hood;
         ctre::phoenix::motorcontrol::can::WPI_TalonSRX Turret;
-
-        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * topwheel;
-        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * bottomwheel;
-        ctre::phoenix::motorcontrol::can::WPI_TalonSRX * feeder;
         frc::Encoder TurretEncoder;
         frc::Encoder HoodEncoder;
 

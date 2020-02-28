@@ -17,7 +17,7 @@ climb.Set(powerup);
 }
 
 void Climber::Down(double powerdown){
-    climb.Set(-powerdown);
+    climb.Set(-1.0 * powerdown);
 }
 
 void Climber::ZeroClimberSpeed(){

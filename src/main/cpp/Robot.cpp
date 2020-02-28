@@ -10,7 +10,7 @@ shooter(),
 stick1(0),
 stick2(1),
 stick3(2),
-driverstation(4)
+driverstation(3)
 {
 dash -> init();
 }
@@ -53,11 +53,9 @@ void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
 //Driving Code
-
-
 tankdrive.SetThrottle(stick1.GetZ());
 
-double tankspeed = (stick1.GetZ()+1)/2;
+double tankspeed = (1-stick1.GetZ())/2;
 dash -> PutNumber("Tankdrive Throttle: ", tankspeed);
 
 if(stick2.GetTrigger()){
@@ -65,13 +63,14 @@ if(stick2.GetTrigger()){
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
 }
 else{
-    tankdrive.Drive(stick2.GetY(), stick1.GetY());
+    tankdrive.Drive(-1*stick2.GetY(), -1* stick1.GetY());
 }
 
 /*----------------------------------------------------------*/
 //                      Intake System Code
 
 //Intake Code
+/*
 if (stick3.GetButton(2)){
 intake.RunIntakeForward(0.5);
 bling.BlingBlue();
@@ -123,18 +122,21 @@ if (stick3.GetButton(10) && stick3.GetButton(7)){
 else{
     intake.SetTowerZero();
 }
+
+*/
 /*----------------------------------------------------------*/
 //Climber Code
 
 //Sending Climber Encoder to Smart Dash
-double ClimberEncoderPositionVar = climber.EncoderValue();
-dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
+//double ClimberEncoderPositionVar = climber.EncoderValue();
+//dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
 
 //Setting the Speed and Putting It Onto Smart Dash
-//climberspeed = (stick2.GetZ()-1)/2;
-//dash -> PutNumber("Climber Speed: ", climberspeed * -100);
+climberspeed = (1-stick2.GetZ())/2;
+dash -> PutNumber("Climber Speed: ", climberspeed * -100);
 
 //Sending the Climber Up and if nothing else is pressed the motor is turned off
+
 if (stick1.GetButton(3)){
     climber.Up(climberspeed);
 }
@@ -151,9 +153,12 @@ else{
     climber.ZeroClimberSpeed();
 }
 
+
 /*----------------------------------------------------------*/
 //Color Wheel
 //Spin Right
+
+/*
 if (stick3.GetButton(5)){
 
 colorwheel.SpinRight();
@@ -171,13 +176,14 @@ if (stick3.GetButton(4)){
 else{
     colorwheel.SetZero();
 }
+*/
 /*----------------------------------------------------------*/
 
 /*                     Shooter                              */
 
-double shooterspeed = (stick2.GetZ()+1)/2;
+double shooterspeed = (1-stick2.GetZ())/2;
 
-if (stick3.GetTrigger()){
+if (stick2.GetButton(3)){
 shooter.SpinFlywheelsOpenLoop(shooterspeed, -shooterspeed);
 
 }
@@ -186,13 +192,15 @@ else{
     shooter.SpinFlywheelsOpenLoop(0.0,0.0);
 }
 
-if (stick3.GetButton(11)){
+if (stick2.GetButton(2)){
     shooter.FeederWheel(0.5);
 }
 
 else{
     shooter.FeederWheel(0.0);
 }
+/*****************************************************/
+
 
 }
 
