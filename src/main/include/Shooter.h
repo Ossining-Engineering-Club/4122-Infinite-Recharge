@@ -14,6 +14,9 @@ class Shooter{
         rev::CANSparkMax TopFlywheel;
         rev::CANSparkMax BottomFlywheel;
 
+        rev::CANEncoder TopEncoder;
+        rev::CANEncoder BottomEncoder;
+
         rev::CANPIDController TopController;
         rev::CANPIDController BottomController;
         
@@ -34,11 +37,15 @@ class Shooter{
         void TurnToPosition(double angleDegrees);
         
         void MoveHood(double power);
+        float GetHoodPosition();
+        void ResetHoodEncoder();
         void TrimHood(double angleDegrees);
         void MoveHoodToPosition(double angleDegrees);
 
         void SpinFlywheelsOpenLoop(double topPower, double bottomPower);
         void SpinFlywheelsPID(double topRPM, double bottomRPM);
+        float GetTopFlywheelVelocity();
+        float GetBottomFlywheelVelocity();
         void Fire();
 
     void FeederWheel(double feederspeed);

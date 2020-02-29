@@ -45,9 +45,9 @@
 
 #define PATH_DT 0.01
 
-#define SHOOTER_P 0.0
-#define SHOOTER_I 0.0
-#define SHOOTER_D 0.0
+#define SHOOTER_P 0.004
+#define SHOOTER_I 0.0000002
+#define SHOOTER_D 0.6
 #define SHOOTER_FF 0.0001761804
 
 

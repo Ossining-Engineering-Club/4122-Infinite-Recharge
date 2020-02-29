@@ -132,8 +132,7 @@ else{
 //dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
 
 //Setting the Speed and Putting It Onto Smart Dash
-climberspeed = (1-stick2.GetZ())/2;
-dash -> PutNumber("Climber Speed: ", climberspeed * -100);
+//climberspeed = (1-stick2.GetZ())/2;
 
 //Sending the Climber Up and if nothing else is pressed the motor is turned off
 
@@ -182,23 +181,32 @@ else{
 /*                     Shooter                              */
 
 double shooterspeed = (1-stick2.GetZ())/2;
+dash -> PutNumber("Climber Speed: ", shooterspeed * 100);
+
 
 if (stick2.GetButton(3)){
-shooter.SpinFlywheelsOpenLoop(shooterspeed, -shooterspeed);
+//shooter.SpinFlywheelsOpenLoop(-shooterspeed, shooterspeed);
+shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
 
 }
 
 else{
     shooter.SpinFlywheelsOpenLoop(0.0,0.0);
 }
-
+dash->PutNumber("Top Velocity", shooter.GetTopFlywheelVelocity());
+dash->PutNumber("BottomVelocity", shooter.GetBottomFlywheelVelocity());
 if (stick2.GetButton(2)){
-    shooter.FeederWheel(0.5);
+    shooter.FeederWheel(-0.5);
 }
 
 else{
     shooter.FeederWheel(0.0);
 }
+
+shooter.MoveHood(stick3.GetY());
+dash->PutNumber("Hood Position", shooter.GetHoodPosition());
+if(stick3.GetButton(11))
+    shooter.ResetHoodEncoder();
 /*****************************************************/
 
 
