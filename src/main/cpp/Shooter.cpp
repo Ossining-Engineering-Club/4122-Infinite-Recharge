@@ -15,7 +15,7 @@ Shooter::Shooter():
     TurretController(),
     HoodController()
 {
-    HoodEncoder.SetDistancePerPulse(1.0);
+    //HoodEncoder.SetDistancePerPulse(1.0);
     TopFlywheel.GetEncoder();
     BottomFlywheel.GetEncoder();
     TopController.SetP(SHOOTER_P);
@@ -74,6 +74,10 @@ void Shooter::FeederWheel(double feederspeed){
 
 void Shooter::MoveHood(double power){
     Hood.Set(power);
+}
+
+void Shooter::MoveHoodToPosition(int encoderDist){
+    
 }
 
 float Shooter::GetHoodPosition(){

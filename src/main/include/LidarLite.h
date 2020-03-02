@@ -7,6 +7,7 @@ class LidarLite{
     public:
         LidarLite(int dioPort);
         double GetDistance();
+        double GetDistanceRaw();
     private:
         Counter lidarCounter;
         double distance;

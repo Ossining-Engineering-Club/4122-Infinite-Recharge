@@ -3,6 +3,7 @@
 #include <rev/CANSparkMax.h>
 #include <frc/Solenoid.h>
 #include <frc/Encoder.h>
+#include <frc/DigitalInput.h>
 #include "LidarLite.h"
 #include "Limelight.h"
 #include <frc/Timer.h>
@@ -40,7 +41,7 @@ class Shooter{
         float GetHoodPosition();
         void ResetHoodEncoder();
         void TrimHood(double angleDegrees);
-        void MoveHoodToPosition(double angleDegrees);
+        void MoveHoodToPosition(int encoderDist);
 
         void SpinFlywheelsOpenLoop(double topPower, double bottomPower);
         void SpinFlywheelsPID(double topRPM, double bottomRPM);

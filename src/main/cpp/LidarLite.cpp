@@ -15,10 +15,20 @@ double LidarLite::GetDistance(){
     if(lidarCounter.Get() < 1)
         distance = 0.0;
     else{
-        distance = lidarCounter.GetPeriod()*100000.0 + LIDAR_OFFSET;
+        distance = (lidarCounter.GetPeriod()*100000.0 + LIDAR_OFFSET)/2.54;
         lidarCounter.Reset();
         }
         avgDistance*=0.9;
         avgDistance += 0.1*distance;
     return avgDistance;
 }
+double LidarLite::GetDistanceRaw(){
+     if(lidarCounter.Get() < 1)
+        distance = 0.0;
+    else{
+        distance = (lidarCounter.GetPeriod()*100000.0 + LIDAR_OFFSET)/2.54;
+        lidarCounter.Reset();
+        }
+    return distance;
+}
+

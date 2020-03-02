@@ -10,13 +10,16 @@ shooter(),
 stick1(0),
 stick2(1),
 stick3(2),
-driverstation(3)
+driverstation(3),
+lidar(6)
 {
 dash -> init();
 }
 
 
 void Robot::RobotInit() {
+    dash->PutNumber("Top RPM", 0.0);
+    dash->PutNumber("Bottom RPM", 0.0);
    
 }
 
@@ -24,12 +27,17 @@ void Robot::AutonomousInit() {
     int AutoPathNumber = 0;
 
     switch(AutoPathNumber){
-        case 0: //Right path - Shoot 3 and get 3 from trench
-            //Shooting sequence here
-            //Start intake
-            tankdrive.AutoDriveGyro(195.0, 0.5, 5.0);
-            Wait(0.5);
-            tankdrive.AutoDriveGyro(195.0, -0.5, 5.0);
+        case 0:
+            shooter.SpinFlywheelsPID(-700, 1100);
+            Wait(2.0);
+            shooter.SpinFlywheelsOpenLoop(0.0, 0.0);
+            tankdrive.AutoDriveGyro(108, -0.2, 5.0, 0.0, false);
+            //tankdrive.AutoDriveGyro(108, -0.2, 5.0);
+            tankdrive.AutoTurnGyro(20.5, 0.3, 5.0);
+            tankdrive.AutoDriveGyro(72, -0.2, 5.0);
+            //tankdrive.AutoDriveGyro(96.0, -0.2, 10.0);
+            //Wait(0.5);
+            //tankdrive.AutoDriveGyro(195.0, -0.5, 5.0);
             //Stop intake
             //Shooting sequence here
             break;
@@ -51,20 +59,25 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
-
+double lidarDist = lidar.GetDistance();
+dash->PutNumber("Lidar Distance", lidarDist);
 //Driving Code
 tankdrive.SetThrottle(stick1.GetZ());
 
 double tankspeed = (1-stick1.GetZ())/2;
 dash -> PutNumber("Tankdrive Throttle: ", tankspeed);
 
-if(stick2.GetTrigger()){
+if(stick2.GetButton(9)){
     double drivePowerDiff = (stick1.GetY() - stick2.GetY())/4.0;
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
 }
 else{
     tankdrive.Drive(-1*stick2.GetY(), -1* stick1.GetY());
 }
+
+
+
+
 
 /*----------------------------------------------------------*/
 //                      Intake System Code
@@ -181,18 +194,42 @@ else{
 /*                     Shooter                              */
 
 double shooterspeed = (1-stick2.GetZ())/2;
-dash -> PutNumber("Climber Speed: ", shooterspeed * 100);
+dash -> PutNumber("Shooter Speed: ", shooterspeed * 100);
 
 
-if (stick2.GetButton(3)){
+int encoderDist = 0.0142*lidarDist*lidarDist-13.038*lidarDist+1402.4;
+
+if (stick2.GetTrigger()){
 //shooter.SpinFlywheelsOpenLoop(-shooterspeed, shooterspeed);
-shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
-
+//shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
+//shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));
+    if(lidarDist >= 115 && lidarDist <= 310)
+         shooter.SpinFlywheelsPID(-700, 1100);
+     else if(lidarDist > 310)
+         shooter.SpinFlywheelsPID(-1500, 1500);
+     else
+         shooter.SpinFlywheelsPID(-800, 800);
 }
-
+    
 else{
     shooter.SpinFlywheelsOpenLoop(0.0,0.0);
 }
+
+dash->PutNumber("Hood Encoder Target", encoderDist);
+//tankdrive.TeleAimLimelight(0.3, stick1.GetTrigger());
+if(stick2.GetTrigger()){
+    if(lidarDist >= 115 && lidarDist <= 310){
+        shooter.MoveHood((shooter.GetHoodPosition()-encoderDist) * HOOD_P);
+        dash->PutNumber("Hood Power", (shooter.GetHoodPosition()-encoderDist) * HOOD_P);
+        }
+    else if(lidarDist > 310)
+        shooter.MoveHood((shooter.GetHoodPosition()+303) * HOOD_P);
+    else
+        shooter.MoveHood((shooter.GetHoodPosition()-3612) * HOOD_P);
+}
+else 
+    shooter.MoveHood(stick3.GetY());
+
 dash->PutNumber("Top Velocity", shooter.GetTopFlywheelVelocity());
 dash->PutNumber("BottomVelocity", shooter.GetBottomFlywheelVelocity());
 if (stick2.GetButton(2)){
@@ -202,8 +239,6 @@ if (stick2.GetButton(2)){
 else{
     shooter.FeederWheel(0.0);
 }
-
-shooter.MoveHood(stick3.GetY());
 dash->PutNumber("Hood Position", shooter.GetHoodPosition());
 if(stick3.GetButton(11))
     shooter.ResetHoodEncoder();

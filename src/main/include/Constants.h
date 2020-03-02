@@ -1,13 +1,20 @@
 #pragma once
-#define VERSION "SPECIAL AUTO TESTING 1.0"
-
 // drive constants
 #define LEFTMULT	1.0
+#define DB_SEMI_WIDTH 11.25
+
+#define PI 3.14159265358979323
 
 // Sensor constants
-#define AUTOGYROCONST -0.06
+#define AUTOGYROCONST -0.04
+#define AUTOTURNCONST -0.24
+
+#define CURVE_P -0.07
+#define CURVE_I -0.00005
+#define CURVE_D -8.0
+
 #define ANGTOLERANCE 5.0
-#define ENCODERCONST 3.203
+#define ENCODERCONST 6.8971
 
 //PID Constants
 #define TIMEPERIOD 0.00001
@@ -49,6 +56,8 @@
 #define SHOOTER_I 0.0000002
 #define SHOOTER_D 0.6
 #define SHOOTER_FF 0.0001761804
+
+#define HOOD_P -0.01
 
 
 #define LIDAR_OFFSET -10.0

@@ -10,7 +10,6 @@ class Climber{
 private:
     rev::CANSparkMax climb;
     rev::CANEncoder climbencoder;
-    frc::Encoder  towerencoder;
 
     double encodervalue;
 

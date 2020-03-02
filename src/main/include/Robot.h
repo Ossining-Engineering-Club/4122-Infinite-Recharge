@@ -15,6 +15,7 @@
 #include "ColorWheel.h"
 #include "Bling.h"
 #include <frc/Encoder.h>
+#include "LidarLite.h"
 #include <Shooter.h>
 
 using namespace frc;
@@ -23,6 +24,7 @@ class Robot : public frc::TimedRobot {
 
 
 private:
+
 OECJoystick stick1;
 OECJoystick stick2;
 OECJoystick stick3;
@@ -36,6 +38,8 @@ Climber climber;
 ColorWheel colorwheel;
 Bling bling;
 Shooter shooter;
+
+LidarLite lidar;
 
 
 

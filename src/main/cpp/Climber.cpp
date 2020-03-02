@@ -3,8 +3,7 @@
 
 Climber::Climber(): 
 climb(18, rev::CANSparkMax::MotorType::kBrushless),
-climbencoder(climb, rev::CANEncoder::EncoderType::kHallSensor, 1),
-towerencoder(0, 1, false, frc::CounterBase::k4X)
+climbencoder(climb, rev::CANEncoder::EncoderType::kHallSensor, 1)
 {
     climb.GetEncoder();
 

@@ -30,9 +30,13 @@ public: // for functions
 	int TeleDriveLimelight(float USrange, float speed, float bias, bool enable);
 
 	void SetThrottle(float Ithrottle);
+	void SetRawThrottle(float Ithrottle);
 
 	void AutoDriveGyro(float distance, float speed, float TimeOut);
 	void AutoDriveGyro(float distance, float speed, float TimeOut, bool startup);
+	void AutoDriveGyro(float distance, float speed, float TimeOut, float rampTime, bool stopAtEnd);
+	void AutoCurveGyro(float distance, float radius, float speed, float TimeOut, float rampTime, bool stopAtEnd);
+	void AutoCurveGyroAngle(float angle, float radius, float speed, float TimeOut, float rampTime, bool stopAtEnd);
 	void AutoDriveGyroLimit(float distance, float speed, float TimeOut, DigitalInput& LimitLift, Jaguar& Lift);
 	void AutoTurnGyroBoth(float angle, float speed, float TimeOut);
 	void AutoTurnGyro(float angle, float speed, float TimeOut);
@@ -50,15 +54,13 @@ public: // for functions
 	double GetAngle();
 	void GetUSSample();
 	double GetUSRange();
-private: 
+private:
+	double rEncoderOffset = 0.0;
+	double lEncoderOffset = 0.0;
 	rev::CANSparkMax LeftF;
 	rev::CANSparkMax RightF;
-
 	rev::CANSparkMax LeftB;
 	rev::CANSparkMax RightB;
-
-	//rev::CANSparkMax LeftT;
-	//rev::CANSparkMax RightT;
 
 
 	rev::CANEncoder LWEncoder;
@@ -72,6 +74,8 @@ private:
 	
 	float VisionX;
 	float throttle;
+	
+	OECPIDController CurveController;
 
 	OECPIDController rdbSpeedController;
 	OECPIDController ldbSpeedController;
