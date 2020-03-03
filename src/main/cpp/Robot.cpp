@@ -170,7 +170,7 @@ else{
 //Color Wheel
 //Spin Right
 
-/*
+
 if (stick3.GetButton(5)){
 
 colorwheel.SpinRight();
@@ -188,7 +188,7 @@ if (stick3.GetButton(4)){
 else{
     colorwheel.SetZero();
 }
-*/
+
 /*----------------------------------------------------------*/
 
 /*                     Shooter                              */

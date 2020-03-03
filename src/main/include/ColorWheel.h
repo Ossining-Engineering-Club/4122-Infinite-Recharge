@@ -15,6 +15,12 @@ ctre::phoenix::motorcontrol::can::WPI_TalonSRX * wheel;
 
 rev::ColorSensorV3 * sensor;
 
+frc::Color Prev_color;
+
+rev::ColorMatch m_colorMatcher;
+
+
+
 
 
 public:
@@ -22,7 +28,7 @@ ColorWheel();
 void SpinRight();
 void SpinLeft();
 void SetZero();
-void SensorDetection();
-
-
+int SensorDetection(int index, frc::Color matchedColor, frc::Color Prev_color);
+frc::Color tocolor(frc::Color matchedColor, char* kTarget);
+int index;
 };
