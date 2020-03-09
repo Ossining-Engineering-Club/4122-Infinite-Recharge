@@ -17,7 +17,7 @@
 #include <frc/Encoder.h>
 #include "LidarLite.h"
 #include <Shooter.h>
-
+#include "ColorWheel.h"
 using namespace frc;
 
 class Robot : public frc::TimedRobot {

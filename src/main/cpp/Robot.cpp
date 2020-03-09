@@ -150,6 +150,34 @@ else{
 }
 
 
+<<<<<<< HEAD
+=======
+/*----------------------------------------------------------*/
+//Color Wheel
+//Spin Right
+
+
+if (stick3.GetButton(5)){
+
+colorwheel.SpinRight();
+
+}
+else{
+    colorwheel.SetZero();
+}
+
+//Spin Left
+if (stick3.GetButton(4)){
+    colorwheel.SpinLeft();
+}
+
+else{
+    colorwheel.SetZero();
+}
+
+/*----------------------------------------------------------*/
+
+>>>>>>> f1ba5e4ea8418248c7bb5cf9cee2495861e0d1cb
 /*                     Shooter                              */
 
 shooterspeed = (1-stick3.GetZ())/2;
