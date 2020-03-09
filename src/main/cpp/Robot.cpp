@@ -4,7 +4,6 @@ Robot::Robot():
 tankdrive(0),
 intake(),
 climber(),
-colorwheel(),
 bling(),
 shooter(),
 stick1(0),
@@ -77,18 +76,18 @@ if(stick1.GetTrigger()){
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
 }
 else{
-    tankdrive.Drive(-1.0 * stick1.GetY(), -1.0 * stick2.GetY());
+    tankdrive.Drive(-1.0 * stick2.GetY(), -1.0 * stick1.GetY());
 }
 
 
 /*----------------------------------------------------------*/
 //                      Intake System Code
 
-if (stick2.GetButton(2) || stick3.GetButton(8) && stick3.GetButton(11)){
+if (stick2.GetButton(2) || (stick3.GetButton(8) && stick3.GetButton(11))){
 //In (put negative sign)
 intake.RunIntake(-0.5);
 }
-else if(stick2.GetButton(3) || stick3.GetButton(9) && stick3.GetButton(11))
+else if(stick2.GetButton(3) || (stick3.GetButton(9) && stick3.GetButton(11)))
 {
 //Out (keep positive)
     intake.RunIntake(0.5);
@@ -150,41 +149,12 @@ else{
 }
 
 
-<<<<<<< HEAD
-=======
-/*----------------------------------------------------------*/
-//Color Wheel
-//Spin Right
-
-
-if (stick3.GetButton(5)){
-
-colorwheel.SpinRight();
-
-}
-else{
-    colorwheel.SetZero();
-}
-
-//Spin Left
-if (stick3.GetButton(4)){
-    colorwheel.SpinLeft();
-}
-
-else{
-    colorwheel.SetZero();
-}
-
-/*----------------------------------------------------------*/
-
->>>>>>> f1ba5e4ea8418248c7bb5cf9cee2495861e0d1cb
 /*                     Shooter                              */
 
 shooterspeed = (1-stick3.GetZ())/2;
 int encoderDist = 0.0142*lidarDist*lidarDist-13.038*lidarDist+1402.4;
 
-
-if (stick3.GetTrigger()){
+if (driverstation.GetButton(7)){
 //shooter.SpinFlywheelsOpenLoop(-shooterspeed, shooterspeed);
 //shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
 shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));

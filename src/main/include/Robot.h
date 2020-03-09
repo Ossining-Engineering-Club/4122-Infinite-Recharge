@@ -35,7 +35,7 @@ frc::SmartDashboard * dash;
 Tankdrive tankdrive;
 IntakeSystem intake;
 Climber climber;
-ColorWheel colorwheel;
+//ColorWheel colorwheel;
 Bling bling;
 Shooter shooter;
 
