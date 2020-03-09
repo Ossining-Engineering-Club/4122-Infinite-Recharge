@@ -57,10 +57,15 @@ public: // for functions
 private:
 	double rEncoderOffset = 0.0;
 	double lEncoderOffset = 0.0;
-	rev::CANSparkMax LeftF;
 	rev::CANSparkMax RightF;
-	rev::CANSparkMax LeftB;
 	rev::CANSparkMax RightB;
+	rev::CANSparkMax RightT;
+	rev::CANSparkMax LeftF;
+	rev::CANSparkMax LeftB;
+	rev::CANSparkMax LeftT;
+
+
+	
 
 
 	rev::CANEncoder LWEncoder;

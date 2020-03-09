@@ -16,10 +16,8 @@ private:
 public:
 
 Climber();
-void Up(double powerup);
-void Down(double powerdown);
+void ClimberDirection(double powerup);
 void ZeroClimberSpeed();
 double EncoderValue();
-void SetClimberPosition(double power, double EncoderPosition);
 
 };

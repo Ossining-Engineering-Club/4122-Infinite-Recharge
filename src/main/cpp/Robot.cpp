@@ -59,166 +59,136 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
+
+//Lidar Distance Reader
 double lidarDist = lidar.GetDistance();
 dash->PutNumber("Lidar Distance", lidarDist);
-//Driving Code
-tankdrive.SetThrottle(stick1.GetZ());
 
-double tankspeed = (1-stick1.GetZ())/2;
+//Driving Code
+tankdrive.SetThrottle(stick2.GetZ());
+
+//Tankdrive Throttle
+double tankspeed = (1-stick2.GetZ())/2;
 dash -> PutNumber("Tankdrive Throttle: ", tankspeed);
 
-if(stick2.GetButton(9)){
+//Driver Assistance
+if(stick1.GetTrigger()){
     double drivePowerDiff = (stick1.GetY() - stick2.GetY())/4.0;
     tankdrive.Drive(stick1.GetY() - drivePowerDiff, stick2.GetY()-drivePowerDiff);
 }
 else{
-    tankdrive.Drive(-1*stick2.GetY(), -1* stick1.GetY());
+    tankdrive.Drive(-1.0 * stick1.GetY(), -1.0 * stick2.GetY());
 }
-
-
-
 
 
 /*----------------------------------------------------------*/
 //                      Intake System Code
 
-//Intake Code
-/*
-if (stick3.GetButton(2)){
-intake.RunIntakeForward(0.5);
-bling.BlingBlue();
+if (stick2.GetButton(2) || stick3.GetButton(8) && stick3.GetButton(11)){
+//In (put negative sign)
+intake.RunIntake(-0.5);
 }
-else{
-    intake.SetIntakeZero();
-}
-//Only give values between 0 and 1 -> the variable it goes into already has a negative in it
-if (stick3.GetButton(3)){
-    intake.RunIntakeBackward(0.5);
-    bling.BlingRed();
+else if(stick2.GetButton(3) || stick3.GetButton(9) && stick3.GetButton(11))
+{
+//Out (keep positive)
+    intake.RunIntake(0.5);
 }
 else{
     intake.SetIntakeZero();
 }
 
 //Tower Code
+if (stick3.GetButton(2)){
+//Up (negative)
+    intake.RunTower(-0.5);
+}
+else if (stick3.GetButton(3)){
+//down (positive)
+intake.RunTower(0.5);
+}
+else{
+intake.SetTowerZero();
+}
+
+//Pivot Code
 if (stick3.GetButton(6)){
-    intake.TowerEncoderRotationForward();
-
+//
+//(positive sign)
+    intake.IntakePivot(0.5);
 }
-
-else {
-    intake.SetTowerZero();
+else if(stick3.GetButton(7)){
+//
+//(negative sign)
+    intake.IntakePivot(-0.5);
 }
-
-if (stick3.GetButton(7)){
-    intake.TowerEncoderRotationBackward();
-}
-
 else{
-    intake.SetTowerZero();
+    intake.PivotZero();
 }
 
-//Override For Tower
-if (stick3.GetButton(10) && stick3.GetButton(6)){
-    intake.RunTowerForward(0.5);
-}
-
-else{
-    intake.SetTowerZero();
-}
-
-if (stick3.GetButton(10) && stick3.GetButton(7)){
-        intake.RunTowerBackward(0.5);
-
-}
-
-else{
-    intake.SetTowerZero();
-}
-
-*/
 /*----------------------------------------------------------*/
-//Climber Code
+//                          Climber Code
 
-//Sending Climber Encoder to Smart Dash
-//double ClimberEncoderPositionVar = climber.EncoderValue();
-//dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
+climberspeed = (1-stick1.GetZ())/2;
+double ClimberEncoderPositionVar = climber.EncoderValue();
+dash -> PutNumber("Climber Get Encoder Position: ", ClimberEncoderPositionVar);
+dash -> PutNumber("Climber Speed:", climberspeed);
 
-//Setting the Speed and Putting It Onto Smart Dash
-//climberspeed = (1-stick2.GetZ())/2;
-
-//Sending the Climber Up and if nothing else is pressed the motor is turned off
-
+//Sending the Climber Up and Down Using Buttons 8 and 9
 if (stick1.GetButton(3)){
-    climber.Up(climberspeed);
+    //up
+    //negative
+    climber.ClimberDirection(-1.0);
+}
+else if (stick1.GetButton(2)){
+    //down
+    //positive
+    climber.ClimberDirection(1.0);
 }
 else{
+    //zero
     climber.ZeroClimberSpeed();
 }
 
-//Setting the Climber Down and if nothing is pressed then the motor is turned off
-//Only give a Positive Value -> In the function the value is negated
-if (stick1.GetButton(2)){
-    climber.Down(climberspeed);
-}
-else{
-    climber.ZeroClimberSpeed();
-}
-
-
-/*----------------------------------------------------------*/
-//Color Wheel
-//Spin Right
-
-/*
-if (stick3.GetButton(5)){
-
-colorwheel.SpinRight();
-
-}
-else{
-    colorwheel.SetZero();
-}
-
-//Spin Left
-if (stick3.GetButton(4)){
-    colorwheel.SpinLeft();
-}
-
-else{
-    colorwheel.SetZero();
-}
-*/
-/*----------------------------------------------------------*/
 
 /*                     Shooter                              */
 
-double shooterspeed = (1-stick2.GetZ())/2;
-dash -> PutNumber("Shooter Speed: ", shooterspeed * 100);
-
-
+shooterspeed = (1-stick3.GetZ())/2;
 int encoderDist = 0.0142*lidarDist*lidarDist-13.038*lidarDist+1402.4;
 
-if (stick2.GetTrigger()){
+
+if (stick3.GetTrigger()){
 //shooter.SpinFlywheelsOpenLoop(-shooterspeed, shooterspeed);
 //shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
-//shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));
-    if(lidarDist >= 115 && lidarDist <= 310)
+shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));
+    /*if(lidarDist >= 115 && lidarDist <= 310)
          shooter.SpinFlywheelsPID(-700, 1100);
      else if(lidarDist > 310)
          shooter.SpinFlywheelsPID(-1500, 1500);
      else
-         shooter.SpinFlywheelsPID(-800, 800);
+         shooter.SpinFlywheelsPID(-800, 800);*/
 }
     
 else{
     shooter.SpinFlywheelsOpenLoop(0.0,0.0);
+    }
+
+if (stick3.GetButton(4)){
+    //up 
+    shooter.FeederWheel(-0.5);
+}
+else if (stick3.GetButton(5)){
+    //down
+    shooter.FeederWheel(0.5);
+}
+else{
+    shooter.FeederWheel(0.0);
 }
 
 dash->PutNumber("Hood Encoder Target", encoderDist);
-//tankdrive.TeleAimLimelight(0.3, stick1.GetTrigger());
-if(stick2.GetTrigger()){
-    if(lidarDist >= 115 && lidarDist <= 310){
+tankdrive.TeleAimLimelight(0.3, stick1.GetTrigger());
+
+if(stick3.GetTrigger()){
+    /*if(lidarDist >= 115 && lidarDist <= 310){
         shooter.MoveHood((shooter.GetHoodPosition()-encoderDist) * HOOD_P);
         dash->PutNumber("Hood Power", (shooter.GetHoodPosition()-encoderDist) * HOOD_P);
         }
@@ -226,23 +196,19 @@ if(stick2.GetTrigger()){
         shooter.MoveHood((shooter.GetHoodPosition()+303) * HOOD_P);
     else
         shooter.MoveHood((shooter.GetHoodPosition()-3612) * HOOD_P);
+*/
+shooter.MoveHood(0.0);
 }
 else 
     shooter.MoveHood(stick3.GetY());
 
+
 dash->PutNumber("Top Velocity", shooter.GetTopFlywheelVelocity());
 dash->PutNumber("BottomVelocity", shooter.GetBottomFlywheelVelocity());
-if (stick2.GetButton(2)){
-    shooter.FeederWheel(-0.5);
-}
 
-else{
-    shooter.FeederWheel(0.0);
-}
 dash->PutNumber("Hood Position", shooter.GetHoodPosition());
 if(stick3.GetButton(11))
     shooter.ResetHoodEncoder();
-/*****************************************************/
 
 
 }

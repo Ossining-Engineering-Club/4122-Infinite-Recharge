@@ -46,6 +46,9 @@ LidarLite lidar;
 //variable for climber speed
 double climberspeed;
 
+//variable for shooter speed
+double shooterspeed;
+
 
 public:
   Robot();

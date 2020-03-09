@@ -10,13 +10,8 @@ climbencoder(climb, rev::CANEncoder::EncoderType::kHallSensor, 1)
 }
 
 
-void Climber::Up(double powerup){
+void Climber::ClimberDirection(double powerup){
 climb.Set(powerup);
-
-}
-
-void Climber::Down(double powerdown){
-    climb.Set(-1.0 * powerdown);
 }
 
 void Climber::ZeroClimberSpeed(){
@@ -27,27 +22,4 @@ double Climber::EncoderValue(){
 
 return climbencoder.GetPosition();
 
-}
-
-
-
-//From Here Is Something I Just Want to Know to do not relevant to code
-void Climber::SetClimberPosition(double power, double EncoderPosition){
-  
-  /*
- double correction = (EncoderPosition-climb.GetEncoder());
-    if(abs(correction) > power)
-        correction = power * (abs(correction)/correction);
-    Set(correction, false);
-    if(GetEncoderPosition() > EncoderPosition){
-        SetPower(-1.0 * power, false);
-    }
-    else if(GetEncoderPosition() < EncoderPosition){
-        SetPower(power, false);
-    }
-    else{
-        SetPower(0.0, false);
-    }
-    
-    */
 }

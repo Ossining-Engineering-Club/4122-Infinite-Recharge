@@ -4,9 +4,11 @@
 Tankdrive::Tankdrive(unsigned int UsonicPort):
 
 LeftF(3, rev::CANSparkMax::MotorType::kBrushless),
-RightF(6, rev::CANSparkMax::MotorType::kBrushless),
 LeftB(4, rev::CANSparkMax::MotorType::kBrushless),
+LeftT(5, rev::CANSparkMax::MotorType::kBrushless),
+RightF(6, rev::CANSparkMax::MotorType::kBrushless),
 RightB(7, rev::CANSparkMax::MotorType::kBrushless),
+RightT(8, rev::CANSparkMax::MotorType::kBrushless),
 LWEncoder(LeftF, rev::CANEncoder::EncoderType::kHallSensor, 1),	
 RWEncoder(RightF, rev::CANEncoder::EncoderType::kHallSensor, 1),
 Gyro(2),
@@ -29,7 +31,10 @@ RPMTimer()
 	Gyro.ResetAngle();
 	LeftF.GetEncoder();
 	LeftB.GetEncoder();
-	RightF.GetEncoder();	RightB.GetEncoder();
+	LeftT.GetEncoder();
+	RightF.GetEncoder();	
+	RightB.GetEncoder();
+	RightT.GetEncoder();
 	throttle = 0.0;
 	VisionX = 0.0;
 	LWEncoder.SetPositionConversionFactor(-1.0 * ENCODERCONST);
@@ -49,8 +54,10 @@ void Tankdrive::Drive(float left, float right)
 		right = -1.0;
 	LeftF.Set(left * throttle * -1.0);
 	LeftB.Set(left * throttle * -1.0);		// becuase joystick values of inversed!!!!
+	LeftT.Set(left * throttle * -1.0);
 	RightF.Set(right * throttle);
 	RightB.Set(right * throttle);
+	RightT.Set(right * throttle);
 }
 void Tankdrive::DirectDrive(float left, float right)
 {
@@ -64,8 +71,10 @@ void Tankdrive::DirectDrive(float left, float right)
 		right = -1.0;
 	LeftF.Set(left);
 	LeftB.Set(left);		// becuase joystick values of inversed!!!!
+	LeftT.Set(left);
 	RightF.Set(right * -1.0);
 	RightB.Set(right * -1.0);
+	RightT.Set(right * -1.0);
 }
 
 void Tankdrive::DriveR(double power){

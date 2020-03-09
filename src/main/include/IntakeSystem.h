@@ -9,20 +9,16 @@ class IntakeSystem{
 private:
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX *intakemotor;
 ctre::phoenix::motorcontrol::can::WPI_TalonSRX *towermotor;
-frc::Solenoid * left;
-frc::Solenoid * right;
-frc::Encoder * towerencoder;
+ctre::phoenix::motorcontrol::can::WPI_TalonSRX * intakepivot;
+//frc::Encoder * towerencoder;
 
 
 public:
 IntakeSystem();
-void RunIntakeForward(float power);
-void RunIntakeBackward(float power);
-void RunTowerForward(float power);
-void RunTowerBackward(float power);
+void RunIntake(double power);
+void RunTower(double power);
+void IntakePivot(double power);
 void SetIntakeZero();
 void SetTowerZero();
-void TowerEncoderRotationForward();
-void TowerEncoderRotationBackward();
-void IntakeDrop();
+void PivotZero();
 };
