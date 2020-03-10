@@ -2,7 +2,7 @@
 
 OECJoystick::OECJoystick(int port){
     stick = new frc::Joystick(port);
-    for(int x = 0; x<=10; x++){
+    for(int x = 0; x<=11; x++){
         buttons[x] = new frc::JoystickButton(stick, x+1);
     }
 }

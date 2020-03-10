@@ -15,6 +15,7 @@
 #include "ColorWheel.h"
 #include "Bling.h"
 #include <frc/Encoder.h>
+#include <frc/AnalogInput.h>
 #include "LidarLite.h"
 #include <Shooter.h>
 #include "ColorWheel.h"
@@ -31,6 +32,10 @@ OECJoystick stick3;
 OECJoystick driverstation;
 
 frc::SmartDashboard * dash;
+
+frc::AnalogInput beamBreak0;
+frc::AnalogInput beamBreak1;
+
 
 Tankdrive tankdrive;
 IntakeSystem intake;

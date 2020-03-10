@@ -3,7 +3,7 @@
 
 Bling::Bling(){
 
-blinkin = new frc::Spark(9);
+blinkin = new frc::Spark(8);
 
 }
 

@@ -10,11 +10,12 @@ stick1(0),
 stick2(1),
 stick3(2),
 driverstation(3),
+beamBreak0(0),
+beamBreak1(1),
 lidar(6)
 {
 dash -> init();
 }
-
 
 void Robot::RobotInit() {
     dash->PutNumber("Top RPM", 0.0);
@@ -59,6 +60,7 @@ void Robot::AutonomousPeriodic() {}
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
 
+dash->PutNumber("Beam break 0", beamBreak0.GetValue());
 //Lidar Distance Reader
 double lidarDist = lidar.GetDistance();
 dash->PutNumber("Lidar Distance", lidarDist);
@@ -79,34 +81,20 @@ else{
     tankdrive.Drive(-1.0 * stick2.GetY(), -1.0 * stick1.GetY());
 }
 
-
 /*----------------------------------------------------------*/
 //                      Intake System Code
 
-if (stick2.GetButton(2) || (stick3.GetButton(8) && stick3.GetButton(11))){
+if (stick2.GetButton(2) || (stick3.GetButton(8) && stick3.GetButton(11)) || driverstation.GetButton(6)){
 //In (put negative sign)
 intake.RunIntake(-0.5);
 }
-else if(stick2.GetButton(3) || (stick3.GetButton(9) && stick3.GetButton(11)))
+else if(stick2.GetButton(3) || (stick3.GetButton(9) && stick3.GetButton(11)) || driverstation.GetButton(2) || driverstation.GetButton(11))
 {
 //Out (keep positive)
     intake.RunIntake(0.5);
 }
 else{
     intake.SetIntakeZero();
-}
-
-//Tower Code
-if (stick3.GetButton(2)){
-//Up (negative)
-    intake.RunTower(-0.5);
-}
-else if (stick3.GetButton(3)){
-//down (positive)
-intake.RunTower(0.5);
-}
-else{
-intake.SetTowerZero();
 }
 
 //Pivot Code
@@ -148,7 +136,6 @@ else{
     climber.ZeroClimberSpeed();
 }
 
-
 /*                     Shooter                              */
 
 shooterspeed = (1-stick3.GetZ())/2;
@@ -170,17 +157,18 @@ else{
     shooter.SpinFlywheelsOpenLoop(0.0,0.0);
     }
 
-if (stick3.GetButton(4)){
-    //up 
+if (stick3.GetButton(4) || driverstation.GetButton(12)){
+   // up 
     shooter.FeederWheel(-0.5);
 }
 else if (stick3.GetButton(5)){
-    //down
+ //   down
     shooter.FeederWheel(0.5);
 }
 else{
     shooter.FeederWheel(0.0);
 }
+
 
 dash->PutNumber("Hood Encoder Target", encoderDist);
 tankdrive.TeleAimLimelight(0.3, stick1.GetTrigger());
@@ -200,7 +188,6 @@ shooter.MoveHood(0.0);
 else 
     shooter.MoveHood(stick3.GetY());
 
-
 dash->PutNumber("Top Velocity", shooter.GetTopFlywheelVelocity());
 dash->PutNumber("BottomVelocity", shooter.GetBottomFlywheelVelocity());
 
@@ -209,14 +196,50 @@ if(stick3.GetButton(11))
     shooter.ResetHoodEncoder();
 
 
+//Firing Using Driverstation Buttons
+if((driverstation.GetButton(11))){
+    intake.RunTower(-0.5);
+    shooter.FeederWheel(-0.5);
 }
+else if(driverstation.GetButton(10) && beamBreak0.GetValue() < 50 && beamBreak1.GetValue() > 50){
+    intake.RunTower(-0.5);
+    shooter.FeederWheel(0.0);
+}
+else if(!driverstation.GetButton(10) && (driverstation.GetButton(3) || stick3.GetButton(2))){
+    intake.RunTower(-0.5); 
+    shooter.FeederWheel(0.0);
+}
+else if(!driverstation.GetButton(10) && (driverstation.GetButton(4) || stick3.GetButton(3))){
+    intake.RunTower(0.5);
+    shooter.FeederWheel(0.0);
+}
+else{
+    intake.RunTower(0);
+    shooter.FeederWheel(0.0);
+}
+    
+//Moving Hood Using Driverstation Buttons
+if (driverstation.GetButton(8)){
+    shooter.MoveHood(0.5);
+}
+else if (driverstation.GetButton(9)){
+    shooter.MoveHood(-0.5);
+}
+else{
+shooter.MoveHood(0.0);
+
+}
+    
+}
+
 
 
 void Robot::TestInit() {}
 void Robot::TestPeriodic() {}
 
 
-
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }
 #endif
+
+

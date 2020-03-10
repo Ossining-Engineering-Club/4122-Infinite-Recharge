@@ -6,7 +6,7 @@
 class OECJoystick{
     private:
         frc::Joystick *stick;
-        frc::JoystickButton *buttons[11];
+        frc::JoystickButton *buttons[12];
     public:
         OECJoystick(int port);
         double GetX();
