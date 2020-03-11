@@ -145,6 +145,7 @@ if(driverstation.GetButton(10) && driverstation.GetButton(7)){
 else{
     shooter.TurnTurret(0.0);
 }
+
 if (driverstation.GetButton(7) && !driverstation.GetButton(10)){
 shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));
     /*if(lidarDist >= 115 && lidarDist <= 310)
