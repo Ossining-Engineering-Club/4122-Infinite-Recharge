@@ -59,11 +59,9 @@ void Robot::AutonomousPeriodic() {}
 
 void Robot::TeleopInit() {}
 void Robot::TeleopPeriodic() {
+    double lidarDist = lidar.GetDistance();
 
-dash->PutNumber("Beam break 0", beamBreak0.GetValue());
-//Lidar Distance Reader
-double lidarDist = lidar.GetDistance();
-dash->PutNumber("Lidar Distance", lidarDist);
+
 
 //Driving Code
 tankdrive.SetThrottle(stick2.GetZ());
@@ -141,9 +139,13 @@ else{
 shooterspeed = (1-stick3.GetZ())/2;
 int encoderDist = 0.0142*lidarDist*lidarDist-13.038*lidarDist+1402.4;
 
-if (driverstation.GetButton(7)){
-//shooter.SpinFlywheelsOpenLoop(-shooterspeed, shooterspeed);
-//shooter.SpinFlywheelsPID(-shooterspeed*5676.0, shooterspeed*5676.0);
+if(driverstation.GetButton(10) && driverstation.GetButton(7)){
+    shooter.TeleAimLimelight();
+}
+else{
+    shooter.TurnTurret(0.0);
+}
+if (driverstation.GetButton(7) && !driverstation.GetButton(10)){
 shooter.SpinFlywheelsPID(dash->GetNumber("Top RPM", 0.0), dash->GetNumber("Bottom RPM", 0.0));
     /*if(lidarDist >= 115 && lidarDist <= 310)
          shooter.SpinFlywheelsPID(-700, 1100);
@@ -169,29 +171,10 @@ else{
     shooter.FeederWheel(0.0);
 }
 
-
-dash->PutNumber("Hood Encoder Target", encoderDist);
-tankdrive.TeleAimLimelight(0.3, stick1.GetTrigger());
-
-if(stick3.GetTrigger()){
-    /*if(lidarDist >= 115 && lidarDist <= 310){
-        shooter.MoveHood((shooter.GetHoodPosition()-encoderDist) * HOOD_P);
-        dash->PutNumber("Hood Power", (shooter.GetHoodPosition()-encoderDist) * HOOD_P);
-        }
-    else if(lidarDist > 310)
-        shooter.MoveHood((shooter.GetHoodPosition()+303) * HOOD_P);
-    else
-        shooter.MoveHood((shooter.GetHoodPosition()-3612) * HOOD_P);
-*/
-shooter.MoveHood(0.0);
-}
-else 
-    shooter.MoveHood(stick3.GetY());
-
 dash->PutNumber("Top Velocity", shooter.GetTopFlywheelVelocity());
 dash->PutNumber("BottomVelocity", shooter.GetBottomFlywheelVelocity());
 
-dash->PutNumber("Hood Position", shooter.GetHoodPosition());
+
 if(stick3.GetButton(11))
     shooter.ResetHoodEncoder();
 
@@ -201,15 +184,15 @@ if((driverstation.GetButton(11))){
     intake.RunTower(-0.5);
     shooter.FeederWheel(-0.5);
 }
-else if(driverstation.GetButton(10) && beamBreak0.GetValue() < 50 && beamBreak1.GetValue() > 50){
+else if(driverstation.GetButton(5) && beamBreak0.GetValue() < 50 && beamBreak1.GetValue() > 50){
     intake.RunTower(-0.5);
     shooter.FeederWheel(0.0);
 }
-else if(!driverstation.GetButton(10) && (driverstation.GetButton(3) || stick3.GetButton(2))){
+else if(!driverstation.GetButton(5) && (driverstation.GetButton(3) || stick3.GetButton(2))){
     intake.RunTower(-0.5); 
     shooter.FeederWheel(0.0);
 }
-else if(!driverstation.GetButton(10) && (driverstation.GetButton(4) || stick3.GetButton(3))){
+else if(!driverstation.GetButton(5) && (driverstation.GetButton(4) || stick3.GetButton(3))){
     intake.RunTower(0.5);
     shooter.FeederWheel(0.0);
 }
@@ -229,7 +212,12 @@ else{
 shooter.MoveHood(0.0);
 
 }
-    
+if(DEBUG){
+    dash->PutNumber("Hood Position", shooter.GetHoodPosition());
+    dash->PutNumber("Hood Encoder Target", encoderDist);
+    dash->PutNumber("Lidar Distance", lidarDist);
+    dash->PutNumber("Beam break 0", beamBreak0.GetValue());
+}
 }
 
 

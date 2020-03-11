@@ -22,10 +22,12 @@ Shooter::Shooter():
     TopController.SetI(SHOOTER_I);
     TopController.SetD(SHOOTER_D);
     TopController.SetFF(SHOOTER_FF);
+    TopController.SetIZone(SHOOTER_IZONE);
     BottomController.SetP(SHOOTER_P);
     BottomController.SetI(SHOOTER_I);
     BottomController.SetD(SHOOTER_D);
     BottomController.SetFF(SHOOTER_FF);
+    BottomController.SetIZone(SHOOTER_IZONE);
     trimTurret = 0.0;
 }
 
@@ -37,6 +39,11 @@ void Shooter::TurnTurret(double power){
 
  Turret.Set(power);
 
+}
+
+void Shooter::TeleAimLimelight(){
+    limelight.Update();
+    TurnTurret(TURRET_VISION_P * limelight.GetXOffset());
 }
 
 void Shooter::TrimTurret(double angleDegrees){

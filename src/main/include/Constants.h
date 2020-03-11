@@ -1,4 +1,6 @@
 #pragma once
+
+#define DEBUG true
 // drive constants
 #define LEFTMULT	1.0
 #define DB_SEMI_WIDTH 11.25
@@ -56,6 +58,9 @@
 #define SHOOTER_I 0.0000002
 #define SHOOTER_D 0.6
 #define SHOOTER_FF 0.0001761804
+#define SHOOTER_IZONE 500.0
+
+#define TURRET_VISION_P 0.0
 
 #define HOOD_P -0.01
 

@@ -8,10 +8,12 @@
 #include "Limelight.h"
 #include <frc/Timer.h>
 #include "OECPIDController.h"
+#include "Limelight.h"
 #include "Constants.h"
 
 class Shooter{
     private:
+        Limelight limelight;
         rev::CANSparkMax TopFlywheel;
         rev::CANSparkMax BottomFlywheel;
 
@@ -36,6 +38,7 @@ class Shooter{
         void TurnTurret(double power);
         void TrimTurret(double angleDegrees);
         void TurnToPosition(double angleDegrees);
+        void TeleAimLimelight();
         
         void MoveHood(double power);
         float GetHoodPosition();
